@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FormEventHandler } from 'react';
-import './App.css';
 import {
   initialState,
   personalInfoReducer,
@@ -9,6 +8,7 @@ import {
 import SimpleField from './components/SimpleField';
 import Question from './components/Question';
 import withToggle from './components/withToggle';
+import Section from './components/Section';
 
 interface  Props {
   onSave: (arg: QuestionConfig) => void
@@ -42,23 +42,34 @@ function App() {
   // console.log(personalInfo)
   return (
     <div className="App">
-      <ul onChange={delegateChangeHandler as FormEventHandler}>
-        {
-          fieldsArr.map(field => <li key={field} data-target={field}>
-            {
-              field === "personalQuestions" ?
-                personalInfo[field].map(({question}) => <span>{question}</span>)
-                :
-                <SimpleField
-                  label={field}
-                  internalUse={personalInfo[field].internalUse}
-                  show={personalInfo[field].show}
-                />
-            }
-          </li>)
-        }
-      </ul>
-      <QuestionToggle onSave={handleQuestion}/>
+      <Section title={'Upload cover image'}>
+
+      </Section>
+      <Section title={'Personal Information'}>
+        <ul onChange={delegateChangeHandler as FormEventHandler}>
+          {
+            fieldsArr.map(field => <li key={field} data-target={field}>
+              {
+                field === "personalQuestions" ?
+                  personalInfo[field].map(({question}) => <span>{question}</span>)
+                  :
+                  <SimpleField
+                    label={field}
+                    internalUse={personalInfo[field].internalUse}
+                    show={personalInfo[field].show}
+                  />
+              }
+            </li>)
+          }
+        </ul>
+        <QuestionToggle onSave={handleQuestion}/>
+      </Section>
+      <Section title={'Profile'}>
+
+      </Section>
+      <Section title={'Additional questions'}>
+
+      </Section>
     </div>
   );
 }
