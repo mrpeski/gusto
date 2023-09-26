@@ -1,11 +1,12 @@
 import React, { FC, FormEventHandler } from "react";
 
 interface Props {
-    onSave: (arg: QuestionConfig) => void
+    onSave: (arg: Omit<QuestionConfig, 'id'>) => void
 }
+const QUESTION_TYPES: QuestionType[] = ['Paragraph', 'Date', 'Dropdown', 'FileUpload', 'MultipleChoice', 'Number', 'ShortAnswer', 'YesNo']
+
 const Question: FC<Props> = ({ onSave }) => {
-    const [config, setConfig] = React.useState<QuestionConfig>({
-        "id": "",
+    const [config, setConfig] = React.useState<Omit<QuestionConfig, 'id'>>({
         "type": "Paragraph",
         "question": "",
         "choices": [],
@@ -24,7 +25,6 @@ const Question: FC<Props> = ({ onSave }) => {
     const handleCheck = (event) => {
         setConfig({ ...config, [event.target.name]: !config[event.target.name]})
     }
-    const questionType: QuestionType[] = ['Paragraph', 'Date', 'Dropdown', 'FileUpload', 'MultipleChoice', 'Number', 'ShortAnswer', 'YesNo']
     const hasMultipleChoice = ['Dropdown', 'MultipleChoice'].includes(config.type)
     const canDisqualify = ['YesNo'].includes(config.type)
 
@@ -32,7 +32,7 @@ const Question: FC<Props> = ({ onSave }) => {
     
     return <form onSubmit={handleSubmit}>
         <select name="type" value={type} onChange={handleChange}>
-            {questionType.map(type => <option value={type} key={type}>{type}</option>)}
+            {QUESTION_TYPES.map(type => <option value={type} key={type}>{type}</option>)}
         </select>
         <input
             type="text" name="question"
