@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FormEventHandler } from 'react';
+import './App.css'
 import {
   initialState,
   personalInfoReducer,
@@ -9,6 +10,7 @@ import SimpleField from './components/SimpleField';
 import Question from './components/Question';
 import withToggle from './components/withToggle';
 import Section from './components/Section';
+import CoverImage from './components/CoverImage';
 
 interface  Props {
   onSave: (arg: QuestionConfig) => void
@@ -42,9 +44,7 @@ function App() {
   // console.log(personalInfo)
   return (
     <div className="App">
-      <Section title={'Upload cover image'}>
-
-      </Section>
+        <CoverImage />
       <Section title={'Personal Information'}>
         <ul onChange={delegateChangeHandler as FormEventHandler}>
           {
