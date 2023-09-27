@@ -13,7 +13,15 @@
     transform: rotate(360deg);
   }
 }
-
+/* Layout */
+.Flex {
+  display: flex;
+  gap: 20px
+}
+.Flex-col {
+  flex-direction: column;
+}
+/* Layout */
 /* Upload Cover Image */
 .Upload-cover {
   height: 210px;
@@ -82,20 +90,20 @@
   border: 0;
   gap: 12px;
   align-items: center; 
-  padding: 12px;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
-}
-.Button.red {
-  color: #A80000;
   font-size: 15px;
   letter-spacing: -0.09px;
 }
+.Button.red {
+  color: #A80000;
+}
 .Button.green {
   color: #F4FBF7;
-font-size: 14px;
-background: #087B2F;
+  font-size: 14px;
+  background: #087B2F;
+  padding: 6px 12px;
 }
 /* Buttons */
 
@@ -118,6 +126,11 @@ background: #087B2F;
   border: 0;
 }
 /* Fields */
-.Flex-col {
-  flex-direction: column;
+
+
+/* Input */
+.Input {
+  border-radius: 5px;
+  border: 1px solid #000;
+  padding: 23px 26px;
 }
