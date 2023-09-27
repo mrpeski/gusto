@@ -98,3 +98,26 @@ font-size: 14px;
 background: #087B2F;
 }
 /* Buttons */
+
+/* Fields */
+.Field {
+  color: #000;
+  font-size: 20px;
+  font-weight: 600;
+  flex-basis: 40%;
+}
+.Field-wrapper {
+  padding-bottom: 25px;
+  padding-top: 23px;
+  border-bottom: 1px solid #C4C4C4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Field-wrapper:last-of-type, .last {
+  border: 0;
+}
+/* Fields */
+.Flex-col {
+  flex-direction: column;
+}

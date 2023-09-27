@@ -1,21 +1,29 @@
 import React from "react"
 
-const SimpleField = ({ label, internalUse, show }) => {
-    return <>
-      <span>{label}</span>
-      <input
-        type='checkbox'
-        key={"internalUse_" + internalUse}
-        name="internalUse"
-        defaultChecked={internalUse}
-      />
-      <input
-        type='checkbox'
-        key={"show_" + show}
-        name="show"
-        defaultChecked={show}
-      />
-    </>
+const SimpleField = ({ label, detail: {internalUse, show }}) => {
+  // if(label === 'gender') console.log(show)
+    return <li className='Field-wrapper'>
+      <span className="Field">{label}</span>
+      <label htmlFor="internalUse">
+        <input
+          data-target={label}
+          type='checkbox'
+          name="internalUse"
+          defaultChecked={internalUse}
+        />
+        Internal
+      </label>
+
+      <label htmlFor="" key={"show_" + show}>
+        <input
+          data-target={label}
+          type='checkbox'
+          name="show"
+          defaultChecked={show}
+        />
+        {show ? 'Show' : 'Hide'}
+      </label>
+    </li>
   }
 
   export default SimpleField
