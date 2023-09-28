@@ -14,12 +14,14 @@ const Questions = withQuestions<Props>(Question)
 const ProfileInfoForm = () => {
 
 
-    const { profileInfo, delegateChangeHandler, handleQuestion  } = useProfileInfo()
+    const { profileInfo, handleQuestion, toggleMandatory, toggleShow  } = useProfileInfo()
     const fieldsArr = Object.keys(profileInfo).filter(field => field !== 'profileQuestions')
 
     return  <Section title={'Profile Information'}>
-    <ul onChange={delegateChangeHandler as FormEventHandler}>
-      { fieldsArr?.map(field => <SimpleField detail={profileInfo[field]} label={field} key={field} />)}
+    <ul>
+      { fieldsArr.map(field => <SimpleField 
+           detail={profileInfo[field]}
+      toggleShow={toggleShow} toggleMandatory={toggleMandatory} label={field} key={field} />)}
       <li data-target={'profileQuestions'} className='Field-wrapper last Flex-col'>
         {profileInfo["profileQuestions"].map(({ question }) => <p>{question}</p>)}
       </li>

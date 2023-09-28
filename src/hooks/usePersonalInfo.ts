@@ -6,19 +6,8 @@ import {
     toggleShow
   } from '../reducers/personalInfo'
 
-  const usePersonalInfo =  () : {personalInfo: any, delegateChangeHandler: any, handleQuestion: any} => {
+  const usePersonalInfo =  () : {personalInfo: any, toggleShow: any, toggleInternalUse: any, handleQuestion: any} => {
     const [personalInfo, dispatch] = React.useReducer(personalInfoReducer, initialState)
-    const delegateChangeHandler = ({ target }: ChangeEvent<HTMLInputElement>) => {
-        const field = target.getAttribute("data-target")
-        const name = target.name
-        if (field) {
-          if (name === "internalUse") {
-            dispatch(toggleInternalUse(field as keyof PersonalInfoConfig))
-          } else if (name === "show") {
-            dispatch(toggleShow(field as keyof PersonalInfoConfig))
-          }
-        }
-      }
     
       const handleQuestion = (payload) => {
         dispatch({
@@ -27,7 +16,15 @@ import {
         })
       }
 
-      return {personalInfo, delegateChangeHandler, handleQuestion}
+      const handleInternalUse = (field: keyof PersonalInfoConfig) => {
+        dispatch(toggleInternalUse(field))
+      }
+
+      const handleShow = (field: keyof PersonalInfoConfig) => {
+        dispatch(toggleShow(field))
+      }
+
+      return {personalInfo, handleQuestion, toggleInternalUse: handleInternalUse, toggleShow: handleShow}
   }
 
   export default usePersonalInfo
