@@ -263,7 +263,17 @@
   border-radius: 5px;
   border: 1px solid #000;
   padding: 23px 26px;
+  flex: 1
 }
+.Question {
+  border-bottom: 1px solid #C4C4C4;
+  padding-bottom: 35px;
+  padding-top: 20px;
+}
+.Question.last {
+  border-bottom: 0;
+}
+
 .Question-title {
   color: #000;
   font-size: 20px;
@@ -277,7 +287,9 @@
 .Question-header {
   display: flex;
   justify-content: space-between;
+
 }
+
 .Question-form {
   margin-bottom: 20px;
   height: 0;
@@ -293,6 +305,18 @@
   height: 0;
   visibility: hidden;
   transition: height 10s ease-in-out;
+}
+.Choices-title {
+  color: #000;
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 56px
+}
+.Choice-wrapper {
+  padding: 5px 0;
+}
+.Choice-add-icon {
+  width: 13px
 }
 .Edit-icon {
   width: 18px;

@@ -30,14 +30,14 @@ const PersonalInfoForm = () => {
             key={field}
           />
         ))}
-        <li
+        <div
           data-target={"personalQuestions"}
           className="Field-wrapper last Flex-col"
         >
           {personalInfo["personalQuestions"].map(({ question }) => (
             <p>{question}</p>
           ))}
-        </li>
+        </div>
       </ul>
       <Questions onSave={handleQuestion} />
     </Section>
