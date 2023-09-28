@@ -1,22 +1,16 @@
 import React from "react"
+import TopNavigation from "./TopNavigation"
+import Sidebar from "./Sidebar"
+
 
 const Layout = ({children}) => {
     return <section className="Flex">
-        <section className="Sidebar">
-            
+            <section className="Sidebar" children={<Sidebar/>} />
+            <main className="Content-wrapper">
+                <section className="Navigation" children={<TopNavigation />}/>
+                <div className="Content" children={children}/>
+            </main>
         </section>
-        <main className="Content-wrapper">
-            <section className="Navigation">
-                <nav className="Navigation-list">
-                    <a className="Navigation-link" href="">Program Details</a>
-                    <a className="Navigation-link active" href="">Application Form</a>
-                    <a className="Navigation-link" href="">Workflow</a>
-                    <a className="Navigation-link" href="">Preview</a>
-                </nav>
-            </section>
-            <div className="Content">{children}</div>
-        </main>
-    </section>
 }
 
 export default Layout

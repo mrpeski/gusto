@@ -44,35 +44,21 @@ function App() {
   // console.log(personalInfo)
   return (
     <Layout>
-
       <CoverImage />
       <Section title={'Personal Information'}>
         <ul onChange={delegateChangeHandler as FormEventHandler}>
-          {
-            fieldsArr.map(field => <SimpleField
-              detail={personalInfo[field]}
-              label={field}
-              key={field}
-            />
-            )
-          }
-          <li
-            data-target={'pesonalQuestions'}
-            className='Field-wrapper last Flex-col'>
+          { fieldsArr.map(field => <SimpleField detail={personalInfo[field]} label={field} key={field} />)}
+          <li data-target={'pesonalQuestions'} className='Field-wrapper last Flex-col'>
             {personalInfo["personalQuestions"].map(({ question }) => <p>{question}</p>)}
           </li>
         </ul>
         <QuestionToggle onSave={handleQuestion} />
       </Section>
       <Section title={'Profile'}>
-
-
-      <QuestionToggle onSave={handleQuestion} />
-
+        <QuestionToggle onSave={handleQuestion} />
       </Section>
       <Section title={'Additional questions'}>
-      <QuestionToggle onSave={handleQuestion} />
-
+        <QuestionToggle onSave={handleQuestion} />
       </Section>
     </Layout>
   );
