@@ -5,7 +5,10 @@ function withToggle<T>(Component): FC<T & {show?: boolean}> {
       const [show, setShow] = React.useState(isShowing)
       const toggle = () => setShow(!show)
       return <> 
-      <button onClick={toggle}>Toggle</button>
+      <button onClick={toggle} className="Button add">
+        <img src="/icons/add_icon.svg" alt="" />
+        Add a question
+        </button>
       {show ? <Component {...rest} /> : null}
       </>
     }

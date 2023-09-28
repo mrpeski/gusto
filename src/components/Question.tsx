@@ -30,26 +30,44 @@ const Question: FC<Props> = ({ onSave }) => {
 
     const { type, question, choices, maxChoice, disqualify, other } = config
     
-    return <form onSubmit={handleSubmit}>
-        <select name="type" value={type} onChange={handleChange}>
+    return <form onSubmit={handleSubmit} className="Flex Flex-col">
+        <label htmlFor="">
+        Type
+        </label>
+        <select name="type" value={type} onChange={handleChange} className="Input">
             {QUESTION_TYPES.map(type => <option value={type} key={type}>{type}</option>)}
         </select>
-        <input
-            type="text" name="question"
-            key={type}
-            placeholder="Question"
-            value={question}
-            onChange={handleChange}
-        />
-        { hasMultipleChoice ? <input type="text" placeholder="Add Choice" name="choices[]" onChange={handleChange} /> : null }
-        { hasMultipleChoice ? <input
+        <label htmlFor="">
+        Question
+        </label>
+            
+            <input
+                type="text" name="question"
+                key={type}
+                placeholder="Question"
+                value={question}
+                onChange={handleChange}
+                className="Input"
+            />
+           
+        { hasMultipleChoice ? <> <label htmlFor="">
+        Choice
+        </label><input className="Input" type="text" placeholder="Add Choice" name="choices[]" onChange={handleChange} /></> : null }
+        
+        { hasMultipleChoice ? <><label htmlFor="">
+        Max choice allowed
+        </label><input
             type="number" name="maxChoice"
             placeholder=""
             value={maxChoice}
             onChange={handleChange}
-        /> : null }
-        { canDisqualify ? <input name="disqualify" value={String(disqualify)} type="checkbox" checked={disqualify} onChange={handleCheck}/> : null}
-        <button>Save</button>
+            className="Input"
+        /> </>: null }
+        { canDisqualify ? <label>
+            <input className="Input" name="disqualify" value={'Disqualify'} type="checkbox" checked={disqualify} onChange={handleCheck}/>
+            <span>Disqualify candidate if the answer is no</span>
+            </label> : null}
+        <button className="Button green">Save</button>
     </form>
 }
 
