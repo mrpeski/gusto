@@ -48,12 +48,17 @@ type ApplicationFormConfig = {
       }
   }
 
-
   type BasicAction = {
     type: string, 
     config: keyof FieldConfig, 
     field: keyof PersonalInfoConfig
   }
+  type ProfileAction = {
+    type: string, 
+    config: keyof ProfileFieldConfig, 
+    field: keyof ProfileConfig
+  }
+
   type QuestionAction = {
     type: string, 
     payload: any
