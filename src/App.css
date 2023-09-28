@@ -301,3 +301,13 @@ text-transform: lowercase;
   width: 18px;
   object-fit: contain;
 }
+
+.Switch-label {
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  padding-inline-start: 8px;
+  padding-inline-end: 8px;
+  box-sizing: border-box;
+  min-width: 55px;
+  display: inline-block;
+}
