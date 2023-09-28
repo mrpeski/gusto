@@ -11,6 +11,7 @@ import Question from './components/Question';
 import withToggle from './components/withToggle';
 import Section from './components/Section';
 import CoverImage from './components/CoverImage';
+import Layout from './components/Layout';
 
 interface Props {
   onSave: (arg: QuestionConfig) => void
@@ -42,7 +43,8 @@ function App() {
   const fieldsArr = Object.keys(personalInfo).filter(field => field !== 'personalQuestions')
   // console.log(personalInfo)
   return (
-    <div className="App">
+    <Layout>
+
       <CoverImage />
       <Section title={'Personal Information'}>
         <ul onChange={delegateChangeHandler as FormEventHandler}>
@@ -64,11 +66,15 @@ function App() {
       </Section>
       <Section title={'Profile'}>
 
-      </Section>
-      <Section title={'Additional questions'}>
+
+      <QuestionToggle onSave={handleQuestion} />
 
       </Section>
-    </div>
+      <Section title={'Additional questions'}>
+      <QuestionToggle onSave={handleQuestion} />
+
+      </Section>
+    </Layout>
   );
 }
 
