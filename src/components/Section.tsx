@@ -25,12 +25,12 @@ const styles = {
     content: {
         padding: '32px',
         background: 'white',
-        borderRadius: '0px 20px 20px 0px',
+        borderRadius: '0px 0px 20px 20px',
     },
     container: {
         maxWidth: 595,
         boxShadow: '3px 3px 14px 0px rgba(190, 190, 190, 0.30)',
-        borderRadius: '0px 20px 20px 0px',
+        borderRadius: '0px 0px 20px 20px',
         marginBottom: 60
     }
 }
