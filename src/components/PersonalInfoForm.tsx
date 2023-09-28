@@ -11,14 +11,14 @@ interface Props {
   
 const Questions = withQuestions<Props>(Question)
 
-const PersonalInfo = () => {
+const PersonalInfoForm = () => {
     const { personalInfo, delegateChangeHandler, handleQuestion  } = usePersonalInfo()
-    const fieldsArr = Object.keys(personalInfo).filter(field => field !== 'profileQuestions')
+    const fieldsArr = Object.keys(personalInfo).filter(field => field !== 'personalQuestions')
 
     return  <Section title={'Personal Information'}>
     <ul onChange={delegateChangeHandler as FormEventHandler}>
       { fieldsArr.map(field => <SimpleField detail={personalInfo[field]} label={field} key={field} />)}
-      <li data-target={'pesonalQuestions'} className='Field-wrapper last Flex-col'>
+      <li data-target={'personalQuestions'} className='Field-wrapper last Flex-col'>
         {personalInfo["personalQuestions"].map(({ question }) => <p>{question}</p>)}
       </li>
     </ul>
@@ -26,4 +26,4 @@ const PersonalInfo = () => {
   </Section>
 }
 
-export default PersonalInfo
+export default PersonalInfoForm
