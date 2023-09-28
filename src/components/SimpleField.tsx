@@ -11,6 +11,7 @@ interface Props {
   toggleInternalUse?: (arg: string) => void;
   toggleMandatory?: (arg: string) => void;
 }
+const PREDEFINED_FIELDS = ["firstName", "lastName", "emailId"];
 
 const SimpleField: React.FC<Props> = ({
   label,
@@ -52,18 +53,23 @@ const SimpleField: React.FC<Props> = ({
           <span className="Field-subtitle"> ({subtitle})</span>
         ) : null}
       </span>
-      <Checkbox checked={checkState} onChange={onCheckboxChange}>
-        {toggleInternalUse ? "Internal" : "Mandatory"}
-      </Checkbox>
-
-      <label htmlFor="">
-        <Switch
-          checked={switchState}
-          data-target={label}
-          onChange={onSwitchChange}
-        />
-        <span className="Switch-label">{switchState ? "Show" : "Hide"}</span>
-      </label>
+      {!PREDEFINED_FIELDS.includes(label) ? (
+        <>
+          <Checkbox checked={checkState} onChange={onCheckboxChange}>
+            {toggleInternalUse ? "Internal" : "Mandatory"}
+          </Checkbox>
+          <label htmlFor="">
+            <Switch
+              checked={switchState}
+              data-target={label}
+              onChange={onSwitchChange}
+            />
+            <span className="Switch-label">
+              {switchState ? "Show" : "Hide"}
+            </span>
+          </label>
+        </>
+      ) : null}
     </li>
   );
 };
