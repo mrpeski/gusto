@@ -7,16 +7,16 @@ import {
   toggleShow
 } from './reducers/personalInfo'
 import SimpleField from './components/SimpleField';
-import Question from './components/Question';
-import withToggle from './components/withToggle';
 import Section from './components/Section';
 import CoverImage from './components/CoverImage';
 import Layout from './components/Layout';
+import withQuestions from './components/withQuestions';
+import Question from './components/Question';
 
 interface Props {
   onSave: (arg: QuestionConfig) => void
 }
-const QuestionToggle = withToggle<Props>(Question)
+const Questions = withQuestions<Props>(Question)
 
 function App() {
   const [personalInfo, dispatch] = React.useReducer(personalInfoReducer, initialState)
@@ -52,13 +52,13 @@ function App() {
             {personalInfo["personalQuestions"].map(({ question }) => <p>{question}</p>)}
           </li>
         </ul>
-        <QuestionToggle onSave={handleQuestion} />
+        <Questions onSave={handleQuestion} />
       </Section>
       <Section title={'Profile'}>
-        <QuestionToggle onSave={handleQuestion} />
+        <Questions onSave={handleQuestion} />
       </Section>
       <Section title={'Additional questions'}>
-        <QuestionToggle onSave={handleQuestion} />
+        <Questions onSave={handleQuestion} />
       </Section>
     </Layout>
   );
