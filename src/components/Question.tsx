@@ -67,7 +67,14 @@ const Question: FC<Props> = ({ onSave }) => {
             <input className="Input" name="disqualify" value={'Disqualify'} type="checkbox" checked={disqualify} onChange={handleCheck}/>
             <span>Disqualify candidate if the answer is no</span>
             </label> : null}
-        <button className="Button green">Save</button>
+                <div className="Flex Space-between">
+                    <button className="Button red">
+                        <img src="/icons/delete_icon.svg" className="" />
+                        <span>Delete question</span>
+                    </button>
+                    
+                    <button className="Button green">Save</button>
+                </div>
     </form>
 }
 
