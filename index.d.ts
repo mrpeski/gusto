@@ -63,3 +63,9 @@ type ApplicationFormConfig = {
     type: string, 
     payload: any
   }
+
+  type Label = {
+    title: string,
+    key: string,
+    subtitle?: string
+  }

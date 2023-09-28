@@ -12,6 +12,8 @@ interface Props {
 const Questions = withQuestions<Props>(Question)
 
 const ProfileInfoForm = () => {
+
+
     const { profileInfo, delegateChangeHandler, handleQuestion  } = useProfileInfo()
     const fieldsArr = Object.keys(profileInfo).filter(field => field !== 'profileQuestions')
 

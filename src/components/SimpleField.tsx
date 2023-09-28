@@ -1,9 +1,17 @@
 import React from "react"
+import { PERSONAL_INFO_LABELS } from "../constants";
+
 
 const SimpleField = ({ label, detail: {internalUse, show }}) => {
   // if(label === 'gender') console.log(show)
+  const title = PERSONAL_INFO_LABELS[label]?.title || label;
+  const subtitle = PERSONAL_INFO_LABELS[label]?.subtitle;
+
     return <li className='Field-wrapper'>
-      <span className="Field">{label}</span>
+      <span className="Field">
+        {title}
+        {subtitle ? <span className="Field-subtitle"> ({subtitle})</span> : null}
+        </span>
       <label htmlFor="internalUse">
         <input
           data-target={label}
