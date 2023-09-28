@@ -6,7 +6,7 @@ interface Props {
   question: QuestionConfig;
   onDelete: (arg: string) => void;
   onSave: (arg: Omit<QuestionConfig, "id">) => void;
-  className: string
+  className: string;
 }
 const QUESTION_TYPES: QuestionType[] = [
   "Paragraph",
@@ -19,9 +19,14 @@ const QUESTION_TYPES: QuestionType[] = [
   "YesNo",
 ];
 
-const Choices = withChoices(Choice)
+const Choices = withChoices(Choice);
 
-const Question: FC<Props> = ({ onSave, question: item, onDelete, className }) => {
+const Question: FC<Props> = ({
+  onSave,
+  question: item,
+  onDelete,
+  className,
+}) => {
   const [config, setConfig] = React.useState<QuestionConfig>(item);
   const [mode, setMode] = React.useState<"create" | "update">("create");
   const [show, setShow] = React.useState<boolean>(true);
@@ -67,7 +72,9 @@ const Question: FC<Props> = ({ onSave, question: item, onDelete, className }) =>
         onSubmit={handleSubmit}
         className={"Flex Flex-col Question-form " + `${show ? "show" : "hide"}`}
       >
-        <label htmlFor="" className="Question-title">Type</label>
+        <label htmlFor="" className="Question-title">
+          Type
+        </label>
         <select
           name="type"
           value={type}
@@ -80,7 +87,9 @@ const Question: FC<Props> = ({ onSave, question: item, onDelete, className }) =>
             </option>
           ))}
         </select>
-        <label htmlFor="" className="Question-title">Question</label>
+        <label htmlFor="" className="Question-title">
+          Question
+        </label>
         <input
           type="text"
           name="question"
@@ -90,13 +99,20 @@ const Question: FC<Props> = ({ onSave, question: item, onDelete, className }) =>
           onChange={handleChange}
           className="Input"
         />
-        {hasMultipleChoice ?     <div className="Choices-wrapper">
-          <label htmlFor="" className="Choices-title">Choice</label>
-          <Choices onAdd={(choices) => {
-          setConfig({ ...config, choices });
-        }} /></div> : null}
+        {hasMultipleChoice ? (
+          <div className="Choices-wrapper">
+            <label htmlFor="" className="Choices-title">
+              Choice
+            </label>
+            <Choices
+              onAdd={(choices) => {
+                setConfig({ ...config, choices });
+              }}
+            />
+          </div>
+        ) : null}
 
-{hasMultipleChoice ? (
+        {hasMultipleChoice ? (
           <label>
             <input
               className="Input"
@@ -112,7 +128,9 @@ const Question: FC<Props> = ({ onSave, question: item, onDelete, className }) =>
 
         {hasMultipleChoice ? (
           <>
-            <label htmlFor="" className="Question-title">Max choice allowed</label>
+            <label htmlFor="" className="Question-title">
+              Max choice allowed
+            </label>
             <input
               type="number"
               name="maxChoice"

@@ -2,20 +2,24 @@ import React, { FC, useRef } from "react";
 
 function withChoices<T>(
   Component,
-): FC<T & { onAdd: (arg: {id: number, choice: string}[]) => void }> {
+): FC<T & { onAdd: (arg: { id: number; choice: string }[]) => void }> {
   return ({ onAdd, ...rest }) => {
     const stable_id = useRef(1);
 
-    const [choices, setChoices] = React.useState<{id: number, choice: string}[]>([{
+    const [choices, setChoices] = React.useState<
+      { id: number; choice: string }[]
+    >([
+      {
         id: stable_id.current,
-        choice: ""
-      }]);
+        choice: "",
+      },
+    ]);
 
     const newChoice = () => {
       setChoices(
         choices.concat({
           id: stable_id.current,
-          choice: ""
+          choice: "",
         }),
       );
       stable_id.current += 1;
@@ -29,25 +33,36 @@ function withChoices<T>(
     };
     return (
       <>
-        {choices.map((choice,idx, arr) => {
-              const isLastItem = (idx === arr.length - 1)
+        {choices.map((choice, idx, arr) => {
+          const isLastItem = idx === arr.length - 1;
 
-return            <div className="Choice-wrapper Flex">
-                <button type="button" className="Button">
-         <img src="/icons/re-sort_icon.svg" alt="" />
-        </button>
-          <Component
-            question={choice}
-            key={choice.id}
-            onDelete={handleDelete}
-            onSave={handleSave}
-          />
-          {isLastItem ? <button onClick={newChoice} type="button" className="Button add">
-          <img src="/icons/add_icon.svg" alt="" className="Choice-add-icon"/>
-        </button> : null}
-        </div>
+          return (
+            <div className="Choice-wrapper Flex">
+              <button type="button" className="Button">
+                <img src="/icons/re-sort_icon.svg" alt="" />
+              </button>
+              <Component
+                question={choice}
+                key={choice.id}
+                onDelete={handleDelete}
+                onSave={handleSave}
+              />
+              {isLastItem ? (
+                <button
+                  onClick={newChoice}
+                  type="button"
+                  className="Button add"
+                >
+                  <img
+                    src="/icons/add_icon.svg"
+                    alt=""
+                    className="Choice-add-icon"
+                  />
+                </button>
+              ) : null}
+            </div>
+          );
         })}
-        
       </>
     );
   };

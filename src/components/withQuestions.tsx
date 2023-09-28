@@ -32,22 +32,24 @@ function withQuestions<T>(
     return (
       <>
         {questions.map((question, idx, arr) => {
-              const isLastItem = (idx === arr.length - 1)
+          const isLastItem = idx === arr.length - 1;
 
-          return <Component
-          className={'Question '+ `${isLastItem? 'last' : ''}`}
-            question={question}
-            key={question.id}
-            onDelete={handleDelete}
-            onSave={handleSave}
-          />
+          return (
+            <Component
+              className={"Question " + `${isLastItem ? "last" : ""}`}
+              question={question}
+              key={question.id}
+              onDelete={handleDelete}
+              onSave={handleSave}
+            />
+          );
         })}
         <button onClick={newQuestion} className="Button add">
           <img src="/icons/add_icon.svg" alt="" />
           Add a question
         </button>
       </>
-        );
+    );
   };
 }
 
