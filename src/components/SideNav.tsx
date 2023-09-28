@@ -1,11 +1,13 @@
 import React from "react"
 
 const SideNav = () => {
-    return <nav className="Navigation-list">
-        <a className="Navigation-link" href="">Program Details</a>
-        <a className="Navigation-link active" href="">Application Form</a>
-        <a className="Navigation-link" href="">Workflow</a>
-        <a className="Navigation-link" href="">Preview</a>
+    return <nav className="SideNav-list">
+        <a className="SideNav-link" href="">
+            <img src="/icons/home_icon.png" className="icon"/>
+        </a>
+        <a className="SideNav-link" href="">
+            <img src="/icons/checklist_icon.png" className="icon"/>
+        </a>
     </nav>
 }
 
