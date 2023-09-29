@@ -39,7 +39,7 @@ type QuestionConfig = {
   }
 type ApplicationFormConfig = {
       "id": string,
-      "type": "applicationForm",
+      "type": string,
       "attributes": {
         "coverImage": string,
         "personalInformation": PersonalInfoConfig,
@@ -69,5 +69,5 @@ type ApplicationFormConfig = {
     key: string,
     subtitle?: string
   }
-  
+
   type UpdatePayload = string | ProfileConfig | PersonalInfoConfig | string[]

@@ -6,26 +6,16 @@ import PersonalInfoForm from "./components/PersonalInfoForm";
 import ProfileInfoForm from "./components/ProfileInfoForm";
 import AdditionalQuestionsForm from "./components/AdditionalInfoForm";
 import { getProgramApplicationForm, updateProgramApplicationForm } from "./apiClient";
-import { FormContext } from "./contexts";
-import { initialState as personalInfoInit } from "./reducers/personalInfo";
-import { initialState as profileInfoInit } from "./reducers/profileInfo";
+import { FormContext, initialState } from "./contexts";
+
 
 
 function App() {
 
-  const [form, setForm] = useState<ApplicationFormConfig>({
-    "id": "xdrsdf",
-    "type": "applicationForm",
-    "attributes": {
-      "coverImage": "",
-      "personalInformation": {...personalInfoInit},
-      "profile": {...profileInfoInit},
-      "customisedQuestions": []
-    }
-  })
+  const [form, setForm] = useState<ApplicationFormConfig>({...initialState})
 
   const PROGRAM_ID_FROM_SEARCH_PARAM = 'minsk'
-  
+
   const getProgramEffect = async () => {
     const {data: applicationForm} = await getProgramApplicationForm(PROGRAM_ID_FROM_SEARCH_PARAM)
     setForm(applicationForm)
