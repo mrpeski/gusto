@@ -2,21 +2,16 @@ import React, { ChangeEventHandler, useState } from "react";
 import Section from "./Section";
 import useFormContext from "../hooks/useFormContext";
 import { ErrorBoundary } from "react-error-boundary";
+import { MB } from "../constants";
 
-interface Props {
-  text?: string;
-  onSuccess?: (data: string) => void;
-  onError?: (data: Error) => void;
-}
-
-export const UploadBtn = (props: Props) => {
+export const UploadBtn = () => {
   const [image, setImage] = useState<string>("");
   const {form, updateOrInsert} = useFormContext()
 
   const handleImageInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files?.[0]) {
-      if (e.target.files[0].size > 1048576) {
-        alert("File is too big! Maximum file size is 1.5mb");
+      if (e.target.files[0].size > 1 * MB) {
+        alert("File is too big! Maximum file size is 1mb");
         return;
       }
     }

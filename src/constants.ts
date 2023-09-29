@@ -42,3 +42,5 @@ export const PERSONAL_INFO_LABELS = LABELS.reduce((acc, curr) => {
   acc[curr.key] = curr;
   return acc;
 }, {});
+
+export const MB = 1048576;
