@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, useState } from "react";
 import Section from "./Section";
 import useFormContext from "../hooks/useFormContext";
+import { ErrorBoundary } from "react-error-boundary";
 
 interface Props {
   text?: string;
@@ -15,28 +16,34 @@ export const UploadBtn = (props: Props) => {
   const handleImageInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files?.[0]) {
       if (e.target.files[0].size > 1048576) {
-        alert("File is too big! Maximum file size is 1mb");
+        alert("File is too big! Maximum file size is 1.5mb");
         return;
       }
     }
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setImage(reader.result as string);
-      updateOrInsert('coverImage', reader.result as string);
+    reader.onloadend = async () => {
+        const resp = await updateOrInsert('coverImage', reader.result as string);
+        if(resp !== "error") setImage(reader.result as string);
     };
     if (e.target.files?.[0]) {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
+
+  const handleDelete = async () => {
+    const resp = await updateOrInsert('coverImage', "https://example.com/fallback.jpeg");
+    if(resp !== "error") setImage("")
+  }
+
   return (
-    <>
+    <ErrorBoundary fallback={<>Error Uploading file.</>}>
       {image ? (
         <article className="Cover-image-preview">
           <div className="header">
             <img src={image} className="image" />
           </div>
           <div className="footer">
-            <button className="Button red" onClick={() => setImage("")}>
+            <button className="Button red" onClick={handleDelete}>
               <img src="/icons/delete_icon.svg" className="" />
               <span>Delete & re-upload</span>
             </button>
@@ -45,7 +52,7 @@ export const UploadBtn = (props: Props) => {
       ) : (
         <Section title={"Upload cover image"}>
           <form>
-            <div style={{ width: "100%" }}>
+            <div>
               <button
                 type={"button"}
                 style={{
@@ -90,7 +97,7 @@ export const UploadBtn = (props: Props) => {
           </form>
         </Section>
       )}
-    </>
+    </ErrorBoundary>
   );
 };
 export default UploadBtn;
