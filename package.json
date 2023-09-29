@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "startMockServer": "prism mock src/ApplicationForm.yaml",
+    "startMockServer": "prism mock src/ApplicationForm.yaml -p 3100",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
