@@ -7,38 +7,50 @@ import ProfileInfoForm from "./components/ProfileInfoForm";
 import AdditionalQuestionsForm from "./components/AdditionalInfoForm";
 import { getProgramApplicationForm, updateProgramApplicationForm } from "./apiClient";
 import { FormContext, initialState } from "./contexts";
+import { message } from "antd";
 
 
 
 function App() {
 
   const [form, setForm] = useState<ApplicationFormConfig>({...initialState})
+  const [messageApi, contextHolder] = message.useMessage();
+
 
   const PROGRAM_ID_FROM_SEARCH_PARAM = 'minsk'
 
-  const getProgramEffect = async () => {
-    const {data: applicationForm} = await getProgramApplicationForm(PROGRAM_ID_FROM_SEARCH_PARAM)
-    setForm(applicationForm)
+  const getProgramEffect = async () =>{
+      const resp = await getProgramApplicationForm(PROGRAM_ID_FROM_SEARCH_PARAM)
+      if(resp !== "error") setForm(resp)
   }
+
   useEffect(() => { getProgramEffect() }, [])
 
-  const updateOrInsert = async (path: string, payload: UpdatePayload) => {
-    const body = {
-      ...form, 
-      attributes: {
-        ...form.attributes,
-        [path]: payload
-      }
-    };
-    console.log('payload', body);
-    const applicationForm = await updateProgramApplicationForm(PROGRAM_ID_FROM_SEARCH_PARAM, body)
-    setForm(applicationForm)
+  const updateOrInsert = async (path: string, payload: UpdatePayload): Promise<void | "error"> => {
+    try{
+      const body = {
+        ...form, 
+        attributes: {
+          ...form.attributes,
+          [path]: payload
+        }
+      };
+      const resp = await updateProgramApplicationForm(PROGRAM_ID_FROM_SEARCH_PARAM, body)
+      if(resp === 'error') throw new Error('could not update program application')
+      setForm(resp)
+    } catch (err) {
+      messageApi.error("Error updating... Please try again")
+      console.log(err.message)
+      return 'error'
+    }
+    
   }
 
-  console.log(form)
+  // console.log(form)
 
   return (
     <Layout>
+      {contextHolder}
       <FormContext.Provider value={{form, updateOrInsert}}>
         <CoverImage /> 
         <PersonalInfoForm />
