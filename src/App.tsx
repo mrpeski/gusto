@@ -9,21 +9,16 @@ import { getProgramApplicationForm, updateProgramApplicationForm } from "./apiCl
 import { FormContext, initialState } from "./contexts";
 import { message } from "antd";
 
-
+const PROGRAM_ID_FROM_SEARCH_PARAM = 'minsk'
 
 function App() {
-
   const [form, setForm] = useState<ApplicationFormConfig>({...initialState})
-  const [messageApi, contextHolder] = message.useMessage();
-
-
-  const PROGRAM_ID_FROM_SEARCH_PARAM = 'minsk'
+  const [messageApi, msgContextHolder] = message.useMessage();
 
   const getProgramEffect = async () =>{
       const resp = await getProgramApplicationForm(PROGRAM_ID_FROM_SEARCH_PARAM)
       if(resp !== "error") setForm(resp)
   }
-
   useEffect(() => { getProgramEffect() }, [])
 
   const updateOrInsert = async (path: string, payload: UpdatePayload): Promise<void | "error"> => {
@@ -46,11 +41,10 @@ function App() {
     
   }
 
-  // console.log(form)
 
   return (
     <Layout>
-      {contextHolder}
+      {msgContextHolder}
       <FormContext.Provider value={{form, updateOrInsert}}>
         <CoverImage /> 
         <PersonalInfoForm />
