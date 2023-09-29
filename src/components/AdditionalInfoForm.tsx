@@ -1,4 +1,5 @@
 import React from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import Section from "./Section";
 import withQuestions from "./withQuestions";
 import Question from "./Question";
@@ -20,7 +21,9 @@ const AdditionalQuestionsForm = () => {
 
   return (
     <Section title={"Additional questions"}>
-      <Questions onSave={handleAddAdditionalQuestion} />
+      <ErrorBoundary fallback={<p>⚠️ Something went wrong</p>}>
+        <Questions onSave={handleAddAdditionalQuestion} />
+      </ErrorBoundary>
     </Section>
   );
 };

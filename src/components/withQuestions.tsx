@@ -1,4 +1,5 @@
 import React, { FC, useRef } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
 function withQuestions<T>(
   Component,
@@ -30,7 +31,7 @@ function withQuestions<T>(
       setQuestions(questions.filter((question) => question.id !== id));
     };
     return (
-      <>
+      <ErrorBoundary fallback={<p>⚠️ Something went wrong. Please refresh.</p>}>
         {questions.map((question, idx, arr) => {
           const isLastItem = idx === arr.length - 1;
 
@@ -48,7 +49,7 @@ function withQuestions<T>(
           <img src="/icons/add_icon.svg" alt="" />
           Add a question
         </button>
-      </>
+      </ErrorBoundary>
     );
   };
 }
