@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SimpleField from "./SimpleField";
 import Section from "./Section";
 import withQuestions from "./withQuestions";
 import Question from "./Question";
 import useProfileInfo from "../hooks/useProfileInfo";
+import useFormContext from "../hooks/useFormContext";
 
 interface Props {
   onSave: (arg: QuestionConfig) => void;
@@ -14,6 +15,18 @@ const Questions = withQuestions<Props>(Question);
 const ProfileInfoForm = () => {
   const { profileInfo, handleQuestion, toggleMandatory, toggleShow } =
     useProfileInfo();
+
+    const {updateOrInsert} = useFormContext()
+    
+    const updateEffect = () => {
+      async function doUpdate() {
+        const resp = await updateOrInsert('profile', profileInfo);
+      }
+      doUpdate()
+    }
+
+    useEffect(updateEffect, [JSON.stringify(profileInfo)])
+
   const fieldsArr = Object.keys(profileInfo).filter(
     (field) => field !== "profileQuestions",
   );
@@ -30,14 +43,6 @@ const ProfileInfoForm = () => {
             key={field}
           />
         ))}
-        <div
-          data-target={"profileQuestions"}
-          className="Field-wrapper last Flex-col"
-        >
-          {profileInfo["profileQuestions"].map(({ question }) => (
-            <p>{question}</p>
-          ))}
-        </div>
       </ul>
       <Questions onSave={handleQuestion} />
     </Section>

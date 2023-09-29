@@ -33,7 +33,7 @@ const Question: FC<Props> = ({
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
-    onSave(config.id);
+    onSave(config);
     setShow(false);
     setMode("update");
   };
@@ -41,7 +41,7 @@ const Question: FC<Props> = ({
     onDelete(config.id);
   };
   const handleChange = ({ target: { name, value } }) => {
-    setConfig({ ...config, [name]: value });
+    setConfig({ ...config, [name]: name === 'maxChoice' ?  Number(value) : value });
   };
   const handleCheck = (event) => {
     setConfig({ ...config, [event.target.name]: !config[event.target.name] });
@@ -53,7 +53,6 @@ const Question: FC<Props> = ({
   const canDisqualify = ["YesNo"].includes(config.type);
 
   const { type, question, choices, maxChoice, disqualify, other } = config;
-
   return (
     <section className={className}>
       {mode === "update" ? (

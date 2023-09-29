@@ -27,6 +27,7 @@ export const personalInfoReducer: Reducer<
     case "toggle":
       const { field, config } = action as BasicAction;
       const objPath = state[field] as FieldConfig;
+      
       return {
         ...state,
         [field]: toggle<FieldConfig, typeof config>(objPath, config),

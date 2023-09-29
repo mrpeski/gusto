@@ -3,6 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import Section from "./Section";
 import withQuestions from "./withQuestions";
 import Question from "./Question";
+import useFormContext from "../hooks/useFormContext";
 
 interface Props {
   onSave: (arg: QuestionConfig) => void;
@@ -11,13 +12,11 @@ interface Props {
 const Questions = withQuestions<Props>(Question);
 
 const AdditionalQuestionsForm = () => {
-  const [customisedQuestions, setCustomisedQuestions] = React.useState([]);
-
-  const handleAddAdditionalQuestion = (payload) => {
-    setCustomisedQuestions(payload);
-  };
-
+  const {updateOrInsert} = useFormContext()
   
+  const handleAddAdditionalQuestion = async (payload) => {
+    const resp = await updateOrInsert('customisedQuestions', payload);
+  };
 
   return (
     <Section title={"Additional questions"}>

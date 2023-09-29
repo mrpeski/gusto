@@ -1,17 +1,17 @@
 import React, { FC, useRef } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import {v4} from "uuid"
 
 function withQuestions<T>(
   Component,
 ): FC<T & { onSave: (arg: QuestionConfig[]) => void }> {
   return ({ onSave, ...rest }) => {
     const [questions, setQuestions] = React.useState<QuestionConfig[]>([]);
-    const stable_id = useRef(1);
 
     const newQuestion = () => {
       setQuestions(
         questions.concat({
-          id: stable_id.current,
+          id: v4(),
           type: "Paragraph",
           question: "",
           choices: [],
@@ -20,15 +20,22 @@ function withQuestions<T>(
           other: false,
         }),
       );
-      stable_id.current += 1;
     };
-    const handleSave = (id: string) => {
-      onSave(questions);
+    const handleSave = (item) => {
+      const updateObj = questions.map(question => {
+        if(question.id === item.id){
+          return item
+        }
+        return question
+      })
+      setQuestions(updateObj);
+      onSave(updateObj)
     };
 
     const handleDelete = (id: string) => {
-      // console.log("delete", id)
-      setQuestions(questions.filter((question) => question.id !== id));
+      const updateObj = questions.filter((question) => question.id !== id)
+      setQuestions(updateObj);
+      onSave(updateObj)
     };
     return (
       <ErrorBoundary fallback={<p>⚠️ Something went wrong. Please refresh.</p>}>
