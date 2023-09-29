@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, FormEventHandler, useState, useContext } from "react";
+import React, { ChangeEventHandler, useState } from "react";
 import Section from "./Section";
 import useFormContext from "../hooks/useFormContext";
 

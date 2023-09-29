@@ -25,13 +25,14 @@ function App() {
   })
 
   const PROGRAM_ID_FROM_SEARCH_PARAM = 'minsk'
+  
   const getProgramEffect = async () => {
     const {data: applicationForm} = await getProgramApplicationForm(PROGRAM_ID_FROM_SEARCH_PARAM)
     setForm(applicationForm)
   }
   useEffect(() => { getProgramEffect() }, [])
 
-  const updateOrInsert = async (path, payload) => {
+  const updateOrInsert = async (path: string, payload: UpdatePayload) => {
     const body = {
       ...form, 
       attributes: {

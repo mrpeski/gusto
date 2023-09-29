@@ -69,3 +69,5 @@ type ApplicationFormConfig = {
     key: string,
     subtitle?: string
   }
+  
+  type UpdatePayload = string | ProfileConfig | PersonalInfoConfig | string[]
