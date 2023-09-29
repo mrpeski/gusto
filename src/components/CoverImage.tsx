@@ -1,5 +1,6 @@
-import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
+import React, { ChangeEventHandler, FormEventHandler, useState, useContext } from "react";
 import Section from "./Section";
+import useFormContext from "../hooks/useFormContext";
 
 interface Props {
   text?: string;
@@ -9,6 +10,7 @@ interface Props {
 
 export const UploadBtn = (props: Props) => {
   const [image, setImage] = useState<string>("");
+  const {form, updateOrInsert} = useFormContext()
 
   const handleImageInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files?.[0]) {
@@ -20,6 +22,7 @@ export const UploadBtn = (props: Props) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       setImage(reader.result as string);
+      updateOrInsert('coverImage', reader.result as string);
     };
     if (e.target.files?.[0]) {
       reader.readAsDataURL(e.target.files[0]);
