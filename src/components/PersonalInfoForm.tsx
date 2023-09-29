@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SimpleField from "./SimpleField";
 import Section from "./Section";
 import withQuestions from "./withQuestions";
@@ -17,14 +17,19 @@ const PersonalInfoForm = () => {
     usePersonalInfo();
 
     const {updateOrInsert} = useFormContext()
+
+    const [skipUpdate, setSkipUpdate] = useState(true)
     
     const updateEffect = () => {
       async function doUpdate() {
         const resp = await updateOrInsert('personalInformation', personalInfo);
       }
-      doUpdate()
-      // if(resp !== "error") setImage(reader.result as string);
+      if(!skipUpdate) doUpdate()
     }
+
+    useEffect(() => {
+      setSkipUpdate(false)
+    }, [])
 
     useEffect(updateEffect, [JSON.stringify(personalInfo)])
 
@@ -44,14 +49,7 @@ const PersonalInfoForm = () => {
             key={field}
           />
         ))}
-        <div
-          data-target={"personalQuestions"}
-          className="Field-wrapper last Flex-col"
-        >
-          {personalInfo["personalQuestions"].map(({ question }) => (
-            <p>{question}</p>
-          ))}
-        </div>
+      
       </ul>
       <Questions onSave={handleQuestion}/>
     </Section>

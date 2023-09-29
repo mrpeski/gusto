@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SimpleField from "./SimpleField";
 import Section from "./Section";
 import withQuestions from "./withQuestions";
@@ -17,13 +17,18 @@ const ProfileInfoForm = () => {
     useProfileInfo();
 
     const {updateOrInsert} = useFormContext()
-    
+    const [skipUpdate, setSkipUpdate] = useState(true)
+ 
     const updateEffect = () => {
       async function doUpdate() {
         const resp = await updateOrInsert('profile', profileInfo);
       }
-      doUpdate()
+      if(!skipUpdate) doUpdate()
     }
+
+    useEffect(() => {
+      setSkipUpdate(false)
+    }, [])
 
     useEffect(updateEffect, [JSON.stringify(profileInfo)])
 
