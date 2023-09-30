@@ -6,11 +6,7 @@ import Question from "./Question";
 import useProfileInfo from "../hooks/useProfileInfo";
 import useFormContext from "../hooks/useFormContext";
 
-interface Props {
-  onSave: (arg: QuestionConfig) => void;
-}
-
-const Questions = withQuestions<Props>(Question);
+const Questions = withQuestions(Question);
 
 const ProfileInfoForm = () => {
   const { profileInfo, handleQuestion, toggleMandatory, toggleShow } =
@@ -21,12 +17,14 @@ const ProfileInfoForm = () => {
  
     const updateEffect = () => {
       async function doUpdate() {
-        const resp = await updateOrInsert('profile', profileInfo);
+        await updateOrInsert('profile', profileInfo);
       }
       if(!skipUpdate) doUpdate()
     }
 
-    useEffect(updateEffect, [JSON.stringify(profileInfo)])
+    const profileInfoStr = JSON.stringify(profileInfo);
+
+    useEffect(updateEffect, [profileInfoStr, profileInfo, skipUpdate, updateOrInsert])
 
     useEffect(() => {
       setSkipUpdate(false)

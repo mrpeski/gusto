@@ -33,7 +33,7 @@ function App() {
       const resp = await updateProgramApplicationForm(PROGRAM_ID_FROM_SEARCH_PARAM, body)
       if(resp === 'error') throw new Error('could not update program application')
       setForm(resp)
-    } catch (err) {
+    } catch (err: any) {
       messageApi.error("Error updating... Please try again")
       console.log(err.message)
       return 'error'

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import {
   initialState,
   profileInfoReducer,
@@ -17,7 +17,7 @@ const useProfileInfo = (): {
     initialState,
   );
 
-  const handleQuestion = (payload) => {
+  const handleQuestion = (payload: QuestionConfig[]) => {
     dispatch({
       type: "add_question",
       payload,

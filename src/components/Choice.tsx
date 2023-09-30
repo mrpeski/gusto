@@ -1,9 +1,9 @@
 import React, { ChangeEventHandler, FC, useState } from "react";
 
-interface Choice { id: string; choice: string }
+interface ChoiceType { id: string; choice: string }
 interface Props {
-  choice: Choice;
-  onChange: (arg: Choice) => void;
+  choice: ChoiceType;
+  onChange: (arg: ChoiceType) => void;
 }
 
 const Choice: FC<Props> = (props) => {

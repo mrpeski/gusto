@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 import {v4} from "uuid"
 
 interface Choice { id: string; choice: string }
@@ -7,7 +7,7 @@ interface Props {
   onChange: (arg: Choice) => void;
 }
 
-function withChoices<T = Props>(
+function withChoices(
   Component: FC<Props>,
 ): FC<{ onChange: (arg: string[]) => void }> {
   return ({ onChange }) => {

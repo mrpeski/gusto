@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SimpleField from "./SimpleField";
 import Section from "./Section";
 import withQuestions from "./withQuestions";
@@ -6,11 +6,7 @@ import Question from "./Question";
 import usePersonalInfo from "../hooks/usePersonalInfo";
 import useFormContext from "../hooks/useFormContext";
 
-interface Props {
-  onSave: (arg: QuestionConfig) => void;
-}
-
-const Questions = withQuestions<Props>(Question);
+const Questions = withQuestions(Question);
 
 const PersonalInfoForm = () => {
   const { personalInfo, handleQuestion, toggleInternalUse, toggleShow } =
@@ -22,11 +18,12 @@ const PersonalInfoForm = () => {
     
     const updateEffect = () => {
       async function doUpdate() {
-        const resp = await updateOrInsert('personalInformation', personalInfo);
+        await updateOrInsert('personalInformation', personalInfo);
       }
       if(!skipUpdate) doUpdate()
     }
-    useEffect(updateEffect, [JSON.stringify(personalInfo)])
+    const personalInfoStr = JSON.stringify(personalInfo)
+    useEffect(updateEffect, [personalInfoStr, skipUpdate, updateOrInsert, personalInfo])
 
     useEffect(() => {
       setSkipUpdate(false)

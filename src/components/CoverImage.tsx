@@ -6,7 +6,7 @@ import { MB } from "../constants";
 
 export const UploadBtn = () => {
   const [image, setImage] = useState<string>("");
-  const {form, updateOrInsert} = useFormContext()
+  const {updateOrInsert} = useFormContext()
 
   const handleImageInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files?.[0]) {
@@ -35,11 +35,11 @@ export const UploadBtn = () => {
       {image ? (
         <article className="Cover-image-preview">
           <div className="header">
-            <img src={image} className="image" />
+            <img src={image} className="image" alt=""/>
           </div>
           <div className="footer">
             <button className="Button red" onClick={handleDelete}>
-              <img src="/icons/delete_icon.svg" className="" />
+              <img src="/icons/delete_icon.svg" className="" alt="" />
               <span>Delete & re-upload</span>
             </button>
           </div>
@@ -64,6 +64,7 @@ export const UploadBtn = () => {
                     <img
                       className="Upload-cover-icon"
                       src="/icons/upload_icon.png"
+                      alt=""
                     />
                     <p className="Upload-cover-title">Upload cover image</p>
                     <p className="Upload-cover-subtitle">

@@ -51,7 +51,7 @@ function withQuestions(
 
           return (
             <Component
-              className={"Question " + `${isLastItem ? "last" : ""}`}
+              className={`Question ${isLastItem ? "last" : ""}`}
               question={question}
               key={question.id}
               onDelete={handleDelete}

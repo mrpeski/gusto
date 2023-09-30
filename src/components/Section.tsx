@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC, PropsWithChildren } from "react";
 
-const Section = ({ title, children }) => {
+const Section: FC<PropsWithChildren<{title: string}>> = ({ title, children }) => {
   return (
     <section style={styles.container}>
       <h4 style={styles.title}>{title}</h4>

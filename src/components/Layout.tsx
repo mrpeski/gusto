@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC, PropsWithChildren } from "react";
 import TopNavigation from "./TopNavigation";
 import Sidebar from "./Sidebar";
 
-const Layout = ({ children }) => {
+const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <section className="Flex">
       <section className="Sidebar" children={<Sidebar />} />

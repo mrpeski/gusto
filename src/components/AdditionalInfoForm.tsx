@@ -5,17 +5,13 @@ import withQuestions from "./withQuestions";
 import Question from "./Question";
 import useFormContext from "../hooks/useFormContext";
 
-interface Props {
-  onSave: (arg: QuestionConfig) => void;
-}
-
-const Questions = withQuestions<Props>(Question);
+const Questions = withQuestions(Question);
 
 const AdditionalQuestionsForm = () => {
   const {updateOrInsert} = useFormContext()
   
-  const handleAddAdditionalQuestion = async (payload) => {
-    const resp = await updateOrInsert('customisedQuestions', payload);
+  const handleAddAdditionalQuestion = async (payload: QuestionConfig[]) => {
+    await updateOrInsert('customisedQuestions', payload);
   };
 
   return (

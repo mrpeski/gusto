@@ -47,7 +47,7 @@ const Question: FC<Props> = ({
 
       <form
         onSubmit={handleSubmit}
-        className={"Flex Flex-col Question-form " + `${show ? "show" : "hide"}`}
+        className={`Flex Flex-col Question-form ${show ? "show" : "hide"}`}
       >
         <QuestionContext.Provider value={{config, handleChange, handleCheck, handleChoices}}>
           <QuestionType />
@@ -55,7 +55,7 @@ const Question: FC<Props> = ({
 
         <div className="Flex Space-between">
           <button className="Button red" type="button" onClick={handleDelete}>
-            <img src="/icons/delete_icon.svg" className="" />
+            <img src="/icons/delete_icon.svg" className="" alt=""/>
             <span>Delete question</span>
           </button>
           <button className="Button green">Save</button>

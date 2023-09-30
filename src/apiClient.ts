@@ -5,13 +5,13 @@ export const getProgramApplicationForm = async (programId: string):  Promise<App
     try {
       const resp = await fetch(`${BASE_URL}/programs/${programId}/application-form`);
       return (await resp.json()).data;
-    } catch (err) {
+    } catch (err: any) {
       console.log('getProgramApplicationForm', err.message)
       return 'error' 
     }
 }
 
-export const updateProgramApplicationForm = async (programId: string, payload) => {
+export const updateProgramApplicationForm = async (programId: string, payload: ApplicationFormConfig) => {
     const options = {
         method: 'PUT',
         headers: {
@@ -23,7 +23,7 @@ export const updateProgramApplicationForm = async (programId: string, payload) =
         const resp = await fetch(`${BASE_URL}/programs/${programId}/application-form`, options);
         if (!resp.ok) throw new Error(`HTTP error ${resp.status}`);
         return payload;
-      } catch (err) {
+      } catch (err: any) {
         console.log('updateProgramApplicationForm', err.message)
         return "error"
       }
