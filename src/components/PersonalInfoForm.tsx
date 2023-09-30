@@ -12,22 +12,22 @@ const PersonalInfoForm = () => {
   const { personalInfo, handleQuestion, toggleInternalUse, toggleShow } =
     usePersonalInfo();
 
-    const {updateOrInsert} = useFormContext()
+  const { updateOrInsert } = useFormContext();
 
-    const [skipUpdate, setSkipUpdate] = useState(true)
-    const personalInfoStr = JSON.stringify(personalInfo)
- 
-    const updateEffect = () => {
-      async function doUpdate() {
-        await updateOrInsert('personalInformation', JSON.parse(personalInfoStr));
-      }
-      if(!skipUpdate) doUpdate()
+  const [skipUpdate, setSkipUpdate] = useState(true);
+  const personalInfoStr = JSON.stringify(personalInfo);
+
+  const updateEffect = () => {
+    async function doUpdate() {
+      await updateOrInsert("personalInformation", JSON.parse(personalInfoStr));
     }
-     useEffect(updateEffect, [personalInfoStr])
+    if (!skipUpdate) doUpdate();
+  };
+  useEffect(updateEffect, [personalInfoStr]);
 
-    useEffect(() => {
-      setSkipUpdate(false)
-    }, [])
+  useEffect(() => {
+    setSkipUpdate(false);
+  }, []);
 
   const fieldsArr = Object.keys(personalInfo).filter(
     (field) => field !== "personalQuestions",
@@ -45,9 +45,8 @@ const PersonalInfoForm = () => {
             key={field}
           />
         ))}
-      
       </ul>
-      <Questions onSave={handleQuestion}/>
+      <Questions onSave={handleQuestion} />
     </Section>
   );
 };

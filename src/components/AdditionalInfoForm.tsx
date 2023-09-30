@@ -8,10 +8,10 @@ import useFormContext from "../hooks/useFormContext";
 const Questions = withQuestions(Question);
 
 const AdditionalQuestionsForm = () => {
-  const {updateOrInsert} = useFormContext()
-  
+  const { updateOrInsert } = useFormContext();
+
   const handleAddAdditionalQuestion = async (payload: QuestionConfig[]) => {
-    await updateOrInsert('customisedQuestions', payload);
+    await updateOrInsert("customisedQuestions", payload);
   };
 
   return (

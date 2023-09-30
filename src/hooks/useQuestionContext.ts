@@ -1,8 +1,8 @@
-import React from "react"
-import { QuestionContext } from "../contexts"
+import React from "react";
+import { QuestionContext } from "../contexts";
 
-const useQuestionContext =  () => {
-    return React.useContext(QuestionContext)
-}
+const useQuestionContext = () => {
+  return React.useContext(QuestionContext);
+};
 
-export default useQuestionContext
+export default useQuestionContext;

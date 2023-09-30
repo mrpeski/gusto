@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import {v4} from "uuid"
+import { v4 } from "uuid";
 
 interface Props {
   question: QuestionConfig;
@@ -29,20 +29,20 @@ function withQuestions(
       );
     };
     const handleSave = (item: QuestionConfig) => {
-      const updateObj = questions.map(question => {
-        if(question.id === item.id){
-          return item
+      const updateObj = questions.map((question) => {
+        if (question.id === item.id) {
+          return item;
         }
-        return question
-      })
+        return question;
+      });
       setQuestions(updateObj);
-      onSave(updateObj)
+      onSave(updateObj);
     };
 
     const handleDelete = (id: string) => {
-      const updateObj = questions.filter((question) => question.id !== id)
+      const updateObj = questions.filter((question) => question.id !== id);
       setQuestions(updateObj);
-      onSave(updateObj)
+      onSave(updateObj);
     };
     return (
       <ErrorBoundary fallback={<p>⚠️ Something went wrong. Please refresh.</p>}>

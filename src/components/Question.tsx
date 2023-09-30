@@ -18,7 +18,7 @@ const Question: FC<Props> = ({
 }) => {
   const [config, setConfig] = React.useState<QuestionConfig>(item);
   const [mode, setMode] = React.useState<"create" | "update">("create");
-  
+
   const [show, setShow] = React.useState<boolean>(true);
 
   const handleSubmit: FormEventHandler = (event) => {
@@ -30,39 +30,51 @@ const Question: FC<Props> = ({
   const handleDelete = () => {
     onDelete(config.id);
   };
-  const handleChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement> = ({ target: { name, value } }) => {
-    setConfig({ ...config, [name]: name === 'maxChoice' ?  Number(value) : value });
+  const handleChange: ChangeEventHandler<
+    HTMLInputElement | HTMLSelectElement
+  > = ({ target: { name, value } }) => {
+    setConfig({
+      ...config,
+      [name]: name === "maxChoice" ? Number(value) : value,
+    });
   };
   const handleCheck: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setConfig({ ...config, [event.target.name]: !config[event.target.name as keyof QuestionConfig] });
+    setConfig({
+      ...config,
+      [event.target.name]: !config[event.target.name as keyof QuestionConfig],
+    });
   };
 
-  const handleChoices = (choices: string[]) => setConfig({ ...config, choices});
+  const handleChoices = (choices: string[]) =>
+    setConfig({ ...config, choices });
 
-  const handleShow = () => setShow(true)
+  const handleShow = () => setShow(true);
 
   return (
-  <section className={className}>
-      {mode === "update" ?  <QuestionCollapsed config={config} show={handleShow} /> : null}
+    <section className={className}>
+      {mode === "update" ? (
+        <QuestionCollapsed config={config} show={handleShow} />
+      ) : null}
 
       <form
         onSubmit={handleSubmit}
         className={`Flex Flex-col Question-form ${show ? "show" : "hide"}`}
       >
-        <QuestionContext.Provider value={{config, handleChange, handleCheck, handleChoices}}>
+        <QuestionContext.Provider
+          value={{ config, handleChange, handleCheck, handleChoices }}
+        >
           <QuestionType />
         </QuestionContext.Provider>
 
         <div className="Flex Space-between">
           <button className="Button red" type="button" onClick={handleDelete}>
-            <img src="/icons/delete_icon.svg" className="" alt=""/>
+            <img src="/icons/delete_icon.svg" className="" alt="" />
             <span>Delete question</span>
           </button>
           <button className="Button green">Save</button>
         </div>
       </form>
     </section>
-  
   );
 };
 

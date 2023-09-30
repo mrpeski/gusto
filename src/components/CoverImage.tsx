@@ -6,7 +6,7 @@ import { MB } from "../constants";
 
 export const UploadBtn = () => {
   const [image, setImage] = useState<string>("");
-  const {updateOrInsert} = useFormContext()
+  const { updateOrInsert } = useFormContext();
 
   const handleImageInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files?.[0]) {
@@ -17,8 +17,8 @@ export const UploadBtn = () => {
     }
     const reader = new FileReader();
     reader.onloadend = async () => {
-        const resp = await updateOrInsert('coverImage', reader.result as string);
-        if(resp !== "error") setImage(reader.result as string);
+      const resp = await updateOrInsert("coverImage", reader.result as string);
+      if (resp !== "error") setImage(reader.result as string);
     };
     if (e.target.files?.[0]) {
       reader.readAsDataURL(e.target.files[0]);
@@ -26,16 +26,19 @@ export const UploadBtn = () => {
   };
 
   const handleDelete = async () => {
-    const resp = await updateOrInsert('coverImage', "https://example.com/fallback.jpeg");
-    if(resp !== "error") setImage("")
-  }
+    const resp = await updateOrInsert(
+      "coverImage",
+      "https://example.com/fallback.jpeg",
+    );
+    if (resp !== "error") setImage("");
+  };
 
   return (
     <ErrorBoundary fallback={<>Error Uploading file.</>}>
       {image ? (
         <article className="Cover-image-preview">
           <div className="header">
-            <img src={image} className="image" alt=""/>
+            <img src={image} className="image" alt="" />
           </div>
           <div className="footer">
             <button className="Button red" onClick={handleDelete}>

@@ -5,48 +5,58 @@ import Layout from "./components/Layout";
 import PersonalInfoForm from "./components/PersonalInfoForm";
 import ProfileInfoForm from "./components/ProfileInfoForm";
 import AdditionalQuestionsForm from "./components/AdditionalInfoForm";
-import { getProgramApplicationForm, updateProgramApplicationForm } from "./apiClient";
+import {
+  getProgramApplicationForm,
+  updateProgramApplicationForm,
+} from "./apiClient";
 import { FormContext, initialState } from "./contexts";
 import { message } from "antd";
 
-const PROGRAM_ID_FROM_SEARCH_PARAM = 'minsk'
+const PROGRAM_ID_FROM_SEARCH_PARAM = "minsk";
 
 function App() {
-  const [form, setForm] = useState<ApplicationFormConfig>({...initialState})
+  const [form, setForm] = useState<ApplicationFormConfig>({ ...initialState });
   const [messageApi, msgContextHolder] = message.useMessage();
 
-  const getProgramEffect = async () =>{
-      const resp = await getProgramApplicationForm(PROGRAM_ID_FROM_SEARCH_PARAM)
-      if(resp !== "error") setForm(resp)
-  }
-  useEffect(() => { getProgramEffect() }, [])
+  const getProgramEffect = async () => {
+    const resp = await getProgramApplicationForm(PROGRAM_ID_FROM_SEARCH_PARAM);
+    if (resp !== "error") setForm(resp);
+  };
+  useEffect(() => {
+    getProgramEffect();
+  }, []);
 
-  const updateOrInsert = async (path: string, payload: UpdatePayload): Promise<void | "error"> => {
-    try{
+  const updateOrInsert = async (
+    path: string,
+    payload: UpdatePayload,
+  ): Promise<void | "error"> => {
+    try {
       const body = {
-        ...form, 
+        ...form,
         attributes: {
           ...form.attributes,
-          [path]: payload
-        }
+          [path]: payload,
+        },
       };
-      const resp = await updateProgramApplicationForm(PROGRAM_ID_FROM_SEARCH_PARAM, body)
-      if(resp === 'error') throw new Error('could not update program application')
-      setForm(resp)
+      const resp = await updateProgramApplicationForm(
+        PROGRAM_ID_FROM_SEARCH_PARAM,
+        body,
+      );
+      if (resp === "error")
+        throw new Error("could not update program application");
+      setForm(resp);
     } catch (err: any) {
-      messageApi.error("Error updating... Please try again")
-      console.log(err.message)
-      return 'error'
+      messageApi.error("Error updating... Please try again");
+      console.log(err.message);
+      return "error";
     }
-    
-  }
-
+  };
 
   return (
     <Layout>
       {msgContextHolder}
-      <FormContext.Provider value={{form, updateOrInsert}}>
-        <CoverImage /> 
+      <FormContext.Provider value={{ form, updateOrInsert }}>
+        <CoverImage />
         <PersonalInfoForm />
         <ProfileInfoForm />
         <AdditionalQuestionsForm />
@@ -54,7 +64,5 @@ function App() {
     </Layout>
   );
 }
-
-
 
 export default App;

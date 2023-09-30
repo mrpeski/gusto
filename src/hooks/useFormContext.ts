@@ -1,8 +1,8 @@
-import React from "react"
-import { FormContext } from "../contexts"
+import React from "react";
+import { FormContext } from "../contexts";
 
-const useFormContext =  () => {
-    return React.useContext(FormContext)
-}
+const useFormContext = () => {
+  return React.useContext(FormContext);
+};
 
-export default useFormContext
+export default useFormContext;

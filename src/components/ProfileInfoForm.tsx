@@ -12,23 +12,23 @@ const ProfileInfoForm = () => {
   const { profileInfo, handleQuestion, toggleMandatory, toggleShow } =
     useProfileInfo();
 
-    const {updateOrInsert} = useFormContext()
-    const [skipUpdate, setSkipUpdate] = useState(true)
- 
-    const profileInfoStr = JSON.stringify(profileInfo);
-    
-    const updateEffect = () => {
-      async function doUpdate() {
-        await updateOrInsert('profile', JSON.parse(profileInfoStr));
-      }
-      if(!skipUpdate) doUpdate()
+  const { updateOrInsert } = useFormContext();
+  const [skipUpdate, setSkipUpdate] = useState(true);
+
+  const profileInfoStr = JSON.stringify(profileInfo);
+
+  const updateEffect = () => {
+    async function doUpdate() {
+      await updateOrInsert("profile", JSON.parse(profileInfoStr));
     }
+    if (!skipUpdate) doUpdate();
+  };
 
-    useEffect(updateEffect, [profileInfoStr])
+  useEffect(updateEffect, [profileInfoStr]);
 
-    useEffect(() => {
-      setSkipUpdate(false)
-    }, [])
+  useEffect(() => {
+    setSkipUpdate(false);
+  }, []);
 
   const fieldsArr = Object.keys(profileInfo).filter(
     (field) => field !== "profileQuestions",
