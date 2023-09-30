@@ -1,11 +1,11 @@
-import React, { FC, FormEventHandler } from "react";
+import React, { ChangeEventHandler, FC, FormEventHandler } from "react";
 import withChoices from "./withChoices";
 import Choice from "./Choice";
 
 interface Props {
   question: QuestionConfig;
   onDelete: (arg: string) => void;
-  onSave: (arg: Omit<QuestionConfig, "id">) => void;
+  onSave: (arg: QuestionConfig) => void;
   className: string;
 }
 const QUESTION_TYPES: QuestionType[] = [
@@ -40,11 +40,11 @@ const Question: FC<Props> = ({
   const handleDelete = () => {
     onDelete(config.id);
   };
-  const handleChange = ({ target: { name, value } }) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement> = ({ target: { name, value } }) => {
     setConfig({ ...config, [name]: name === 'maxChoice' ?  Number(value) : value });
   };
-  const handleCheck = (event) => {
-    setConfig({ ...config, [event.target.name]: !config[event.target.name] });
+  const handleCheck: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setConfig({ ...config, [event.target.name]: !config[event.target.name as keyof QuestionConfig] });
   };
 
   const hasMultipleChoice = ["Dropdown", "MultipleChoice"].includes(
@@ -103,11 +103,7 @@ const Question: FC<Props> = ({
             <label htmlFor="" className="Choices-title">
               Choice
             </label>
-            <Choices
-              onAdd={(choices) => {
-                setConfig({ ...config, choices });
-              }}
-            />
+            <Choices onChange={(choices) => { setConfig({ ...config, choices});}} />
           </div>
         ) : null}
 
