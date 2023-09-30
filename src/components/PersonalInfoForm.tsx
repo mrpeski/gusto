@@ -15,15 +15,15 @@ const PersonalInfoForm = () => {
     const {updateOrInsert} = useFormContext()
 
     const [skipUpdate, setSkipUpdate] = useState(true)
-    
+    const personalInfoStr = JSON.stringify(personalInfo)
+ 
     const updateEffect = () => {
       async function doUpdate() {
-        await updateOrInsert('personalInformation', personalInfo);
+        await updateOrInsert('personalInformation', JSON.parse(personalInfoStr));
       }
       if(!skipUpdate) doUpdate()
     }
-    const personalInfoStr = JSON.stringify(personalInfo)
-    useEffect(updateEffect, [personalInfoStr, skipUpdate, updateOrInsert, personalInfo])
+     useEffect(updateEffect, [personalInfoStr])
 
     useEffect(() => {
       setSkipUpdate(false)

@@ -15,16 +15,16 @@ const ProfileInfoForm = () => {
     const {updateOrInsert} = useFormContext()
     const [skipUpdate, setSkipUpdate] = useState(true)
  
+    const profileInfoStr = JSON.stringify(profileInfo);
+    
     const updateEffect = () => {
       async function doUpdate() {
-        await updateOrInsert('profile', profileInfo);
+        await updateOrInsert('profile', JSON.parse(profileInfoStr));
       }
       if(!skipUpdate) doUpdate()
     }
 
-    const profileInfoStr = JSON.stringify(profileInfo);
-
-    useEffect(updateEffect, [profileInfoStr, profileInfo, skipUpdate, updateOrInsert])
+    useEffect(updateEffect, [profileInfoStr])
 
     useEffect(() => {
       setSkipUpdate(false)
