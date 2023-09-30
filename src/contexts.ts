@@ -23,3 +23,10 @@ export const FormContext = React.createContext<Props>({
     form: {...initialState},
     updateOrInsert: () => null
 })
+
+export const QuestionContext = React.createContext<any>({
+  // form: {...initialState},
+  handleCheck: () => null,
+  handleChange: () => null,
+  handleDelete: () => null
+})

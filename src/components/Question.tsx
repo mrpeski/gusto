@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, FC, FormEventHandler } from "react";
-import withChoices from "./withChoices";
-import Choice from "./Choice";
+import { QuestionContext } from "../contexts";
+import QuestionType from "./QuestionType";
+import QuestionCollapsed from "./QuestionCollapsed";
 
 interface Props {
   question: QuestionConfig;
@@ -8,18 +9,6 @@ interface Props {
   onSave: (arg: QuestionConfig) => void;
   className: string;
 }
-const QUESTION_TYPES: QuestionType[] = [
-  "Paragraph",
-  "Date",
-  "Dropdown",
-  "FileUpload",
-  "MultipleChoice",
-  "Number",
-  "ShortAnswer",
-  "YesNo",
-];
-
-const Choices = withChoices(Choice);
 
 const Question: FC<Props> = ({
   onSave,
@@ -29,6 +18,7 @@ const Question: FC<Props> = ({
 }) => {
   const [config, setConfig] = React.useState<QuestionConfig>(item);
   const [mode, setMode] = React.useState<"create" | "update">("create");
+  
   const [show, setShow] = React.useState<boolean>(true);
 
   const handleSubmit: FormEventHandler = (event) => {
@@ -47,108 +37,22 @@ const Question: FC<Props> = ({
     setConfig({ ...config, [event.target.name]: !config[event.target.name as keyof QuestionConfig] });
   };
 
-  const hasMultipleChoice = ["Dropdown", "MultipleChoice"].includes(
-    config.type,
-  );
-  const canDisqualify = ["YesNo"].includes(config.type);
+  const handleChoices = (choices: string[]) => setConfig({ ...config, choices});
 
-  const { type, question, choices, maxChoice, disqualify, other } = config;
+  const handleShow = () => setShow(true)
+
   return (
-    <section className={className}>
-      {mode === "update" ? (
-        <header className="Question-header">
-          <div>
-            <span className="Question-type">{type}</span>
-            <h3 className="Question-title">{question} </h3>
-          </div>
-          <button className="Button edit" onClick={() => setShow(true)}>
-            <img className="Edit-icon" src="/icons/edit_icon.png" alt="Edit" />
-          </button>
-        </header>
-      ) : null}
+  <section className={className}>
+      {mode === "update" ?  <QuestionCollapsed config={config} show={handleShow} /> : null}
 
       <form
         onSubmit={handleSubmit}
         className={"Flex Flex-col Question-form " + `${show ? "show" : "hide"}`}
       >
-        <label htmlFor="" className="Question-title">
-          Type
-        </label>
-        <select
-          name="type"
-          value={type}
-          onChange={handleChange}
-          className="Input"
-        >
-          {QUESTION_TYPES.map((type) => (
-            <option value={type} key={type}>
-              {type}
-            </option>
-          ))}
-        </select>
-        <label htmlFor="" className="Question-title">
-          Question
-        </label>
-        <input
-          type="text"
-          name="question"
-          key={type}
-          placeholder="Question"
-          value={question}
-          onChange={handleChange}
-          className="Input"
-        />
-        {hasMultipleChoice ? (
-          <div className="Choices-wrapper">
-            <label htmlFor="" className="Choices-title">
-              Choice
-            </label>
-            <Choices onChange={(choices) => { setConfig({ ...config, choices});}} />
-          </div>
-        ) : null}
+        <QuestionContext.Provider value={{config, handleChange, handleCheck, handleChoices}}>
+          <QuestionType />
+        </QuestionContext.Provider>
 
-        {hasMultipleChoice ? (
-          <label>
-            <input
-              className="Input"
-              name="other"
-              value={""}
-              type="checkbox"
-              checked={other}
-              onChange={handleCheck}
-            />
-            <span>Enable “Other” option </span>
-          </label>
-        ) : null}
-
-        {hasMultipleChoice ? (
-          <>
-            <label htmlFor="" className="Question-title">
-              Max choice allowed
-            </label>
-            <input
-              type="number"
-              name="maxChoice"
-              placeholder=""
-              value={maxChoice}
-              onChange={handleChange}
-              className="Input"
-            />{" "}
-          </>
-        ) : null}
-        {canDisqualify ? (
-          <label>
-            <input
-              className="Input"
-              name="disqualify"
-              value={"Disqualify"}
-              type="checkbox"
-              checked={disqualify}
-              onChange={handleCheck}
-            />
-            <span>Disqualify candidate if the answer is no</span>
-          </label>
-        ) : null}
         <div className="Flex Space-between">
           <button className="Button red" type="button" onClick={handleDelete}>
             <img src="/icons/delete_icon.svg" className="" />
@@ -158,6 +62,7 @@ const Question: FC<Props> = ({
         </div>
       </form>
     </section>
+  
   );
 };
 
