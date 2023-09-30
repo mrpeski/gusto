@@ -26,11 +26,11 @@ const ProfileInfoForm = () => {
       if(!skipUpdate) doUpdate()
     }
 
+    useEffect(updateEffect, [JSON.stringify(profileInfo)])
+
     useEffect(() => {
       setSkipUpdate(false)
     }, [])
-
-    useEffect(updateEffect, [JSON.stringify(profileInfo)])
 
   const fieldsArr = Object.keys(profileInfo).filter(
     (field) => field !== "profileQuestions",

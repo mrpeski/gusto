@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import SimpleField from "./SimpleField";
 import Section from "./Section";
 import withQuestions from "./withQuestions";
@@ -26,12 +26,11 @@ const PersonalInfoForm = () => {
       }
       if(!skipUpdate) doUpdate()
     }
+    useEffect(updateEffect, [JSON.stringify(personalInfo)])
 
     useEffect(() => {
       setSkipUpdate(false)
     }, [])
-
-    useEffect(updateEffect, [JSON.stringify(personalInfo)])
 
   const fieldsArr = Object.keys(personalInfo).filter(
     (field) => field !== "personalQuestions",
