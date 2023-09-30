@@ -1,11 +1,18 @@
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import {v4} from "uuid"
 
-function withQuestions<T>(
-  Component,
-): FC<T & { onSave: (arg: QuestionConfig[]) => void }> {
-  return ({ onSave, ...rest }) => {
+interface Props {
+  question: QuestionConfig;
+  onDelete: (arg: string) => void;
+  onSave: (arg: QuestionConfig) => void;
+  className: string;
+}
+
+function withQuestions(
+  Component: FC<Props>,
+): FC<{ onSave: (arg: QuestionConfig[]) => void }> {
+  return ({ onSave }) => {
     const [questions, setQuestions] = React.useState<QuestionConfig[]>([]);
 
     const newQuestion = () => {
@@ -21,7 +28,7 @@ function withQuestions<T>(
         }),
       );
     };
-    const handleSave = (item) => {
+    const handleSave = (item: QuestionConfig) => {
       const updateObj = questions.map(question => {
         if(question.id === item.id){
           return item
