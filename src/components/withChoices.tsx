@@ -1,52 +1,48 @@
 import React, { FC, useRef } from "react";
+import {v4} from "uuid"
 
-function withChoices<T>(
-  Component,
-): FC<T & { onAdd: (arg: { id: number; choice: string }[]) => void }> {
-  return ({ onAdd, ...rest }) => {
-    const stable_id = useRef(1);
+interface Choice { id: string; choice: string }
+interface Props {
+  choice: Choice;
+  onChange: (arg: Choice) => void;
+}
 
-    const [choices, setChoices] = React.useState<
-      { id: number; choice: string }[]
-    >([
-      {
-        id: stable_id.current,
-        choice: "",
-      },
-    ]);
+function withChoices<T = Props>(
+  Component: FC<Props>,
+): FC<{ onChange: (arg: string[]) => void }> {
+  return ({ onChange }) => {
+
+    const [choices, setChoices] = React.useState<Choice[]>([{id: v4(), choice: ""}]);
 
     const newChoice = () => {
       setChoices(
-        choices.concat({
-          id: stable_id.current,
-          choice: "",
-        }),
+        choices.concat({id: v4(), choice: ""}),
       );
-      stable_id.current += 1;
     };
-    const handleSave = (id: string) => {
-      onAdd(choices);
+    const handleChange = (item: Choice) => {
+      const updateObj = choices.map(choice => {
+        if(choice.id === item.id){
+          return item
+        }
+        return choice
+      })
+      setChoices(updateObj)
+      onChange( updateObj.map(item => item.choice));
     };
 
-    const handleDelete = (id: string) => {
-      setChoices(choices.filter((choice) => choice.id !== +id));
-    };
+
+    // console.log('Choices Arr', choices)
+
     return (
       <>
         {choices.map((choice, idx, arr) => {
           const isLastItem = idx === arr.length - 1;
-
           return (
-            <div className="Choice-wrapper Flex">
+            <div className="Choice-wrapper Flex" key={choice.id} >
               <button type="button" className="Button">
                 <img src="/icons/re-sort_icon.svg" alt="" />
               </button>
-              <Component
-                question={choice}
-                key={choice.id}
-                onDelete={handleDelete}
-                onSave={handleSave}
-              />
+              <Component choice={choice} onChange={handleChange} />
               {isLastItem ? (
                 <button
                   onClick={newChoice}

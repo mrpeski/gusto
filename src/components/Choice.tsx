@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { ChangeEventHandler, FC, useState } from "react";
 
-const Choice = () => {
-  const [choice, setChoice] = useState("");
-  const handleChange = ({ target: { name, value } }) => {
+interface Choice { id: string; choice: string }
+interface Props {
+  choice: Choice;
+  onChange: (arg: Choice) => void;
+}
+
+const Choice: FC<Props> = (props) => {
+  const [choice, setChoice] = useState(props.choice.choice);
+  const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target: { name, value } }) => {
     setChoice(value);
+    props.onChange({
+      id: props.choice.id,
+      choice: value
+    })
   };
   return (
     <input
