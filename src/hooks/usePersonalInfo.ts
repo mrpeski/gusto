@@ -7,10 +7,10 @@ import {
 } from "../reducers/personalInfo";
 
 const usePersonalInfo = (): {
-  personalInfo: any;
-  toggleShow: any;
-  toggleInternalUse: any;
-  handleQuestion: any;
+  personalInfo: PersonalInfoConfig;
+  toggleShow: (arg: string) => void;
+  toggleInternalUse: (arg: string) => void;
+  handleQuestion: (arg: QuestionConfig[]) => void;
 } => {
   const [personalInfo, dispatch] = React.useReducer(
     personalInfoReducer,
@@ -24,12 +24,12 @@ const usePersonalInfo = (): {
     });
   };
 
-  const handleInternalUse = (field: keyof PersonalInfoConfig) => {
-    dispatch(toggleInternalUse(field));
+  const handleInternalUse = (field: string) => {
+    dispatch(toggleInternalUse(field as keyof PersonalInfoConfig));
   };
 
-  const handleShow = (field: keyof PersonalInfoConfig) => {
-    dispatch(toggleShow(field));
+  const handleShow = (field: string) => {
+    dispatch(toggleShow(field as keyof PersonalInfoConfig));
   };
 
   return {
