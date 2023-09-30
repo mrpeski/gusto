@@ -36,7 +36,7 @@ export const personalInfoReducer: Reducer<
       const { payload } = action as QuestionAction;
       return {
         ...state,
-        personalQuestions: state.personalQuestions.concat(payload),
+        personalQuestions: [...payload],
       };
     default:
       return state;

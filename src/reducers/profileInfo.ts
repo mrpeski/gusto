@@ -29,7 +29,7 @@ export const profileInfoReducer: Reducer<
       const { payload } = action as QuestionAction;
       return {
         ...state,
-        profileQuestions: state.profileQuestions.concat(payload),
+        profileQuestions: [...payload],
       };
     default:
       return state;
