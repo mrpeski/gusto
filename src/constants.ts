@@ -38,7 +38,7 @@ const LABELS: Label[] = [
   },
 ];
 
-export const PERSONAL_INFO_LABELS = LABELS.reduce((acc, curr) => {
+export const PERSONAL_INFO_LABELS = LABELS.reduce((acc: Record<string, Label>, curr) => {
   acc[curr.key] = curr;
   return acc;
 }, {});
